@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.projectnike.nike.mapper.ProductListMapper">
+    <!--제품 리스트 보여주기-->
+    <select id="getFreeProductList" parameterType="String" resultType="com.projectnike.nike.domain.ProductListVO">
+        SELECT
+            ROWNUM,
+            ITEM_NUM,
+            GENDER,
+            CATEGORY,
+            ITEM_TYPE,
+            ITEM_NAME,
+            ITEM_SIZE,
+            COLOR,
+            PRICE
+        FROM  PRODUCTS
+        WHERE
+            1=1
+            <if test="search != null">
+                <if test="search != ''">
+                    AND ITEM_NAME LIKE '%' || #{search} || '%'
+                </if>
+                <if test="search == ''">
+                    AND 1=0
+                </if>
+            </if>
+        ORDER BY
+            <if test="type == null">
+                rownum
+            </if>
+            <if test="type != null">
+                <if test="type == 'rownum'">
+                    rownum
+                </if>
+                <if test="type == 'item_num'">
+                    item_num
+                </if>
+                <if test="type == 'gender'">
+                    gender
+                </if>
+                <if test="type == 'category'">
+                    gender
+                </if>
+                <if test="type == 'item_type'">
+                    gender
+                </if>
+                <if test="type == 'item_name'">
+                    gender
+                </if>
+                <if test="type == 'item_size'">
+                    gender
+                </if>
+                <if test="type == 'color'">
+                    gender
+                </if>
+                <if test="type == 'price'">
+                    gender
+                </if>
+            </if>
+    </select>
+
+    <!--제품 행수 찾기-->
+    <select id="getFreeProductListRowNum">
+        SELECT *
+        FROM PRODUCTS
+    </select>
+
+    <!--제품 등록-->
+    <insert id="addProduct">
+        INSERT INTO products
+        VALUES (#{item_num}, #{gender}, #{category}, #{item_type},
+        #{item_name}, #{item_size}, #{color}, #{price})
+    </insert>
+
+    <!--제품 삭제-->
+    <delete id="delProduct">
+        DELETE FROM PRODUCTS  WHERE item_num  = #{num}
+    </delete>
+</mapper>

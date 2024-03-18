@@ -13,8 +13,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-//@ComponentScan(basePackages = "org.zerock.service")
-//@MapperScan(basePackages = {"org.zerock.mapper"})
+//@ComponentScan(basePackages = "com.projectnike.nike.service")
+@MapperScan(basePackages = {"com.projectnike.nike.mapper"})
 public class DBConfig {
     @Bean
     public DataSource dataSource() {
@@ -37,8 +37,8 @@ public class DBConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean();
         sqlSessionFactory.setDataSource(dataSource());
-//        sqlSessionFactory.setMapperLocations(
-//                new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/**/*.xml"));
+        sqlSessionFactory.setMapperLocations(
+                new PathMatchingResourcePatternResolver().getResources("classpath:mybatis/**/*.xml"));
         return (SqlSessionFactory) sqlSessionFactory.getObject();
     }
 

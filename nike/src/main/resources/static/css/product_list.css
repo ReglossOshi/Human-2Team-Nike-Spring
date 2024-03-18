@@ -1,4 +1,4 @@
-@charset "EUC-KR";
+@charset "UTF-8";
 .body_header {
   border-bottom: solid 1px #f8f7f8;
   padding: 20px;
@@ -50,7 +50,7 @@
   color: #40A2D8;
   cursor: pointer;
   font-weight: bold;
-  font-family: 'SejonghospitalBold'; 
+  font-family: 'SejonghospitalBold';
   text-align: center;
   line-height: 50px;
 }
@@ -59,11 +59,11 @@
 	background-color: #40A2D8;
 	color: #F0EDCF;
 }
-         
+
 .body_header .add_btn a {
 	text-decoration-line: none;
 }
-	
+
 .product_header {
   background-color: #8AAAE5;
   width: 1010px;
@@ -76,7 +76,7 @@
 	text-align: center;
 	font-size: 18px;
     font-weight: bold;
-    font-family: 'SejonghospitalBold'; 
+    font-family: 'SejonghospitalBold';
     display: inline-block;
     line-height: 40px;
     box-sizing: content-box;
@@ -118,7 +118,7 @@
 	text-align: center;
 	padding: 20px 0 20px 0;
 	box-sizing: content-box;
-	
+
 }
 
 .product_list .list_rnum{
@@ -159,19 +159,19 @@
 	display: flex;
 	justify-content: center;
 	height: 30px;
-	
+
 }
 .pagination .startPage, .beforePage, .listPage, .boldPage, .nextpage, .lastPage{
 	text-decoration-line: none;
 	padding: 10px;
 	line-height: 30px;
 	font-size: 20px;
-	
+
 }
 
 .pagination .listPage, .boldPage{
 	padding-top: 5px;
-	
+
 }
 
 .pagination .boldPage {

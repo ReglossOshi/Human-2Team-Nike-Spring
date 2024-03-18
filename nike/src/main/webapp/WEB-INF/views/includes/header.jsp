@@ -41,4 +41,3 @@
 			</li>
 		</ul>
 	</header>
-<%@ include file="footer.jsp" %>
