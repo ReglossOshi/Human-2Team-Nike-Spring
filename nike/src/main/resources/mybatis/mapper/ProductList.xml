@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.projectnike.nike.mapper.ProductListMapper">
-    <!--제품 리스트 보여주기-->
+    <!--제품 리스트 보여주기/ 예전 코드, 안쓰는 코드, 아래에 있는 getListWithPaging 사용-->
     <select id="getFreeProductList" parameterType="String" resultType="com.projectnike.nike.domain.ProductListVO">
         SELECT
             ROWNUM,
@@ -26,45 +26,91 @@
                 </if>
             </if>
         ORDER BY
-            <if test="type == null">
-                rownum
-            </if>
-            <if test="type != null">
-                <if test="type == 'rownum'">
-                    rownum
-                </if>
-                <if test="type == 'item_num'">
-                    item_num
-                </if>
-                <if test="type == 'gender'">
-                    gender
-                </if>
-                <if test="type == 'category'">
-                    gender
-                </if>
-                <if test="type == 'item_type'">
-                    gender
-                </if>
-                <if test="type == 'item_name'">
-                    gender
-                </if>
-                <if test="type == 'item_size'">
-                    gender
-                </if>
-                <if test="type == 'color'">
-                    gender
-                </if>
-                <if test="type == 'price'">
-                    gender
-                </if>
-            </if>
+            <choose>
+                <when test="type == null">rownum</when>
+                <when test="type == 'item_num'">ITEM_NUM</when>
+                <when test="type == 'gender'">GENDER</when>
+                <when test="type == 'category'">CATEGORY</when>
+                <when test="type == 'item_type'">ITEM_TYPE</when>
+                <when test="type == 'item_name'">ITEM_NAME</when>
+                <when test="type == 'item_size'">ITEM_SIZE</when>
+                <when test="type == 'color'">COLOR</when>
+                <when test="type == 'price'">PRICE</when>
+                <otherwise>rownum</otherwise>
+            </choose>
     </select>
 
-    <!--제품 행수 찾기-->
-    <select id="getFreeProductListRowNum">
-        SELECT *
-        FROM PRODUCTS
+    <select id="getListWithPaging" resultType="com.projectnike.nike.domain.ProductListVO" >
+        SELECT
+        *
+        FROM (
+            SELECT
+                    ROWNUM AS rn,
+                    ITEM_NUM,
+                    GENDER,
+                    CATEGORY,
+                    ITEM_TYPE,
+                    ITEM_NAME,
+                    ITEM_SIZE,
+                    COLOR,
+                    PRICE
+            FROM
+                ( SELECT *
+                FROM PRODUCTS
+                ORDER BY
+                    <choose>
+                        <when test="type == null">rownum</when>
+                        <when test="type == 'item_num'">ITEM_NUM</when>
+                        <when test="type == 'gender'">GENDER</when>
+                        <when test="type == 'category'">CATEGORY</when>
+                        <when test="type == 'item_type'">ITEM_TYPE</when>
+                        <when test="type == 'item_name'">ITEM_NAME</when>
+                        <when test="type == 'item_size'">ITEM_SIZE</when>
+                        <when test="type == 'color'">COLOR</when>
+                        <when test="type == 'price'">PRICE</when>
+                        <otherwise>rownum</otherwise>
+                    </choose>
+                )
+            <![CDATA[
+            WHERE 1=1 ) a
+        where 1=1
+           AND a.rn <= #{pageNum} * #{amount}
+           AND a.rn > (#{pageNum} - 1) * #{amount}
+       ]]>
+
     </select>
+
+    <!--총 갯수-->
+    <select id="getOrderTotal" resultType="int">
+        SELECT COUNT(*)
+        FROM (
+            SELECT
+                ROWNUM,
+                ITEM_NUM,
+                GENDER,
+                CATEGORY,
+                ITEM_TYPE,
+                ITEM_NAME,
+                ITEM_SIZE,
+                COLOR,
+                PRICE
+            FROM PRODUCTS
+            ORDER BY
+                <choose>
+                    <when test="type == null">rownum</when>
+                    <when test="type == 'item_num'">ITEM_NUM</when>
+                    <when test="type == 'gender'">GENDER</when>
+                    <when test="type == 'category'">CATEGORY</when>
+                    <when test="type == 'item_type'">ITEM_TYPE</when>
+                    <when test="type == 'item_name'">ITEM_NAME</when>
+                    <when test="type == 'item_size'">ITEM_SIZE</when>
+                    <when test="type == 'color'">COLOR</when>
+                    <when test="type == 'price'">PRICE</when>
+                    <otherwise>rownum</otherwise>
+                </choose>
+        )
+    </select>
+
 
     <!--제품 등록-->
     <insert id="addProduct">

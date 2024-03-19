@@ -25,10 +25,16 @@ public class ProductListController {
 
     @GetMapping("/productList")
     public String productList(Criteria cri, Model model) {
-        List<ProductListVO> productListVOList = productListService.getFreeProductList(cri);
+        List<ProductListVO> productListVOList = productListService.getListWithPaging(cri);
 
         model.addAttribute("productListVOList", productListVOList);
         model.addAttribute("criteria", cri);
+
+        com.humanedu.firstproject.domain.PageDTO pageDTO = new com.humanedu.firstproject.domain.PageDTO(cri,productListService.getTotalCount(cri) );
+        model.addAttribute("pageMaker", pageDTO);
+        model.addAttribute("criteria", cri);
+
+
         return "productList";
     }
 

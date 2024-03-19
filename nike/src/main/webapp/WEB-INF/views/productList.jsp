@@ -97,6 +97,19 @@
 	</table>
 </div>
 
+    <!-- 페이지네이션 -->
+    <ul class="pagination">
+        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+            <li
+                class='paginate_button ${pageMaker.cri.pageNum == num ? "active":""} '>
+                <a href="/productList?&type=<c:out value= "${criteria.type}" />&pageNum=<c:out value= "${num}" />"
+                style="color: black;" class="pagenum">${num}</a>
+            </li>
+        </c:forEach>
+
+        <!-- <li class="pagination_button next"><a href="#" style="color: black;">Next</a></li> -->
+    </ul>
+
 <script>
     <!-- 검색 -->
   	function searchText() {
@@ -122,7 +135,7 @@
     function changeSelect(){
         var select  = document.getElementById("onchange");
         var selectValue = select.options[select.selectedIndex].value;   // select element에서 선택된 option의 value가 저장된다.
-        location.href = "./productList?type=" + selectValue;  // 페이지의 주소를 material = 선택된데이터(즉 WHERE 원재자명 = selectValue 이런느낌)
+        location.href = "./productList?type=" + selectValue + "&search=" + $('#search_pro').val();  // 페이지의 주소를 material = 선택된데이터(즉 WHERE 원재자명 = selectValue 이런느낌)
     }
 
 </script>

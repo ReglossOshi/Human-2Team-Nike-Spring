@@ -22,6 +22,24 @@ public class ProductListServiceImpl implements ProductListService {
         return productListMapper.getFreeProductList(cri);
     }
 
+    @Override
+    public Integer getTotalCount(Criteria cri) {
+        Integer totalListOrderVO = productListMapper.getOrderTotal(cri);
+        return totalListOrderVO;
+    }
+
+    @Override
+    public List<ProductListVO> getOrderPageList(Criteria cri) {
+        List<ProductListVO> listPageOrderVO = productListMapper.getListWithPaging(cri);
+        return listPageOrderVO;
+    }
+
+    @Override
+    public List<ProductListVO> getListWithPaging(Criteria cri) {
+        List<ProductListVO> listPageOrderVO = productListMapper.getListWithPaging(cri);
+        return listPageOrderVO;
+    }
+
     // 제품 등록
     @Override
     public int insertProduct(

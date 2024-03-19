@@ -1,5 +1,6 @@
 package com.projectnike.nike.mapper;
 
+import com.projectnike.nike.controller.ProductListController;
 import com.projectnike.nike.domain.Criteria;
 import com.projectnike.nike.domain.ProductListVO;
 
@@ -8,6 +9,9 @@ import java.util.List;
 public interface ProductListMapper {
     // 제품 리스트
     List<ProductListVO> getFreeProductList(Criteria cri);
+
+    List<ProductListVO> getListWithPaging(Criteria cri);
+    Integer getOrderTotal(Criteria cri); // 주문목록 총 갯수
 
     // 제품 등록
     int addProduct(ProductListVO productListVO);  // return값은 삽입한 행수
