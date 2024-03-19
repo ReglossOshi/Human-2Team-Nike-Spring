@@ -42,7 +42,15 @@
 
     <select id="getListWithPaging" resultType="com.projectnike.nike.domain.ProductListVO" >
         SELECT
-        *
+            ROWNUM,
+            ITEM_NUM,
+            GENDER,
+            CATEGORY,
+            ITEM_TYPE,
+            ITEM_NAME,
+            ITEM_SIZE,
+            COLOR,
+            PRICE
         FROM (
             SELECT
                     ROWNUM AS rn,
