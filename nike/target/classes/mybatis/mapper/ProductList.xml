@@ -65,6 +65,16 @@
             FROM
                 ( SELECT *
                 FROM PRODUCTS
+                WHERE
+                    1=1
+                    <if test="search != null">
+                        <if test="search != ''">
+                            AND ITEM_NAME LIKE '%' || #{search} || '%'
+                        </if>
+                        <if test="search == ''">
+                            AND 1=0
+                        </if>
+                    </if>
                 ORDER BY
                     <choose>
                         <when test="type == null">rownum</when>
@@ -81,9 +91,10 @@
                 )
             <![CDATA[
             WHERE 1=1 ) a
-        where 1=1
-           AND a.rn <= #{pageNum} * #{amount}
-           AND a.rn > (#{pageNum} - 1) * #{amount}
+        WHERE
+            1=1
+            AND a.rn <= #{pageNum} * #{amount}
+            AND a.rn > (#{pageNum} - 1) * #{amount}
        ]]>
 
     </select>
@@ -103,6 +114,16 @@
                 COLOR,
                 PRICE
             FROM PRODUCTS
+            WHERE
+                1=1
+                <if test="search != null">
+                    <if test="search != ''">
+                        AND ITEM_NAME LIKE '%' || #{search} || '%'
+                    </if>
+                    <if test="search == ''">
+                        AND 1=0
+                    </if>
+                </if>
             ORDER BY
                 <choose>
                     <when test="type == null">rownum</when>
@@ -118,7 +139,6 @@
                 </choose>
         )
     </select>
-
 
     <!--제품 등록-->
     <insert id="addProduct">

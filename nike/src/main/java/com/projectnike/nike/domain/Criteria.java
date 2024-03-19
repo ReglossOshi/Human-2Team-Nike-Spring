@@ -8,9 +8,6 @@ import lombok.Setter;
 public class Criteria {
     private String type;    // 옵션
     private  String search; // 검색값
-
-    private String startDt;     // 시작 페이지
-    private String endDt;       // 끝 페이지
     private int pageNum;        // 페이지 수
     private int amount;         // 한 페이지에 보여질 게시글
 

@@ -26,7 +26,7 @@
 <!-- 검색창 -->
   <div class="search">
   	<div style="display: inline-block;">
-		<input type="search" name="search_pro" id="search_pro" class="search_pro" placeholder="제품명을 입력하세요" value='<c:out value="${search}" />'>
+		<input type="search" name="search_pro" id="search_pro" class="search_pro" placeholder="제품명을 입력하세요" value='<c:out value="${criteria.search}" />'autocomplete="off">
 	</div>
 	<div style="display: inline-block;">
 		<a class="search_a" href="javascript: searchText();">
@@ -134,8 +134,11 @@
 	<!-- 온체인지 -->
     function changeSelect(){
         var select  = document.getElementById("onchange");
-        var selectValue = select.options[select.selectedIndex].value;   // select element에서 선택된 option의 value가 저장된다.
-        location.href = "./productList?type=" + selectValue + "&search=" + $('#search_pro').val();  // 페이지의 주소를 material = 선택된데이터(즉 WHERE 원재자명 = selectValue 이런느낌)
+        var selectValue = select.options[select.selectedIndex].value;
+
+        if($('#search_pro').val()== '') {
+        location.href = "./productList?type=" + selectValue
+        } else {location.href = "./productList?type=" + selectValue + "&search=" + $('#search_pro').val();}
     }
 
 </script>
